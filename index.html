@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpyTag–SpyCatcher De novo design project</title>
+  <meta name="description" content="De novo redesign of the SDC_155746 scaffold to install a SpyCatcher–SpyTag-compatible binding interface, using MPNN inverse folding, ESMFold, and an ESM3dG stability ensemble." />
+  <meta name="theme-color" content="#0f2a26" />
+  <meta property="og:title" content="SpyTag–SpyCatcher — De novo design" />
+  <meta property="og:description" content="Installing a SpyCatcher–SpyTag-compatible binding interface onto the SDC_155746 scaffold via inverse-folding redesign and structure/stability prediction." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="mark">◈</span>
+        <span>SpyTag–SpyCatcher&nbsp;· SDC_155746</span>
+      </a>
+      <nav class="nav-links" id="navlinks">
+        <a href="#objective">Objective</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#methods">Methods</a>
+        <a href="#results">Results</a>
+        <a href="#data">Data</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <span class="eyebrow">De novo protein design · SDC_155746 scaffold</span>
+        <h1>Building a SpyCatcher–SpyTag<br/>interface onto SDC_155746</h1>
+        <p class="lead">
+          Redesigning the <span class="mono">SDC_155746</span> scaffold with inverse-folding
+          sequence design to install a strong, orthogonal SpyTag/SpyCatcher-compatible binding surface —
+          enabling site-specific, covalent conjugation of the scaffold.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#pipeline">See the pipeline ↓</a>
+          <a class="btn btn-ghost" href="#results">View results</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OBJECTIVE ============ -->
+    <section id="objective">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">The goal</p>
+          <h2>Why put a SpyTag/SpyCatcher on a scaffold?</h2>
+          <p class="sub">
+            The SpyCatcher–SpyTag system is one of the strongest, most orthogonal non-covalent protein–protein
+            interactions known — a transglutaminase-based pair that forms a stable isopeptide bond
+            (reported <span class="pill">K<sub>d</sub> ~ 10⁻¹⁷ M</span>). Presenting one half of this pair on a
+            protein scaffold lets that scaffold be conjugated to a partner of choice in a clean, site-specific way.
+          </p>
+        </div>
+
+        <div class="objective">
+          <div class="obj-grid">
+            <div class="obj-card reveal">
+              <h3>🧬 Scaffold</h3>
+              <p>The <span class="pill">SDC_155746</span> scaffold (≈78&nbsp;aa), used as the structural backbone that the new interface is designed around.</p>
+            </div>
+            <div class="obj-card reveal">
+              <h3>🎯 Strategy</h3>
+              <p>Hold the target binding-interface residues fixed on the backbone, then <b>inverse-fold</b> the surrounding sequence to make the design both well-structured and stable.</p>
+            </div>
+            <div class="obj-card reveal">
+              <h3>✅ Selection</h3>
+              <p>Every design is scored on <b>fold quality</b> (ESMFold pLDDT/pTM) and <b>stability</b> (ESM3dG ΔG) so candidates that both fold cleanly and are thermodynamically stable advance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PIPELINE ============ -->
+    <section id="pipeline" class="tint">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Workflow</p>
+          <h2>A three-round design–predict–select loop</h2>
+          <p class="sub">Start small to validate the strategy, scale to 100k candidates to find the best designs, then finish the leading candidate.</p>
+        </div>
+
+        <div class="pipeline">
+          <!-- Round 1 -->
+          <article class="round reveal">
+            <span class="tag">Round 1 · Pilot</span>
+            <div class="scale">10,000 designs</div>
+            <h3>Validate the approach</h3>
+            <ul class="steps">
+              <li>MPNN inverse folding on <code class="mono">SDC_155746_trunc</code></li>
+              <li>ESMFold structure prediction → pLDDT &amp; pTM</li>
+              <li>Secondary-structure analysis per design</li>
+            </ul>
+            <div class="result-line"><b>45</b> designs passed the pLDDT&nbsp;≥&nbsp;92 &amp; ≥58% structured filter</div>
+          </article>
+
+          <!-- Round 2 -->
+          <article class="round reveal">
+            <span class="tag">Round 2 · Scale</span>
+            <div class="scale">100,000 designs</div>
+            <h3>Find the best designs</h3>
+            <ul class="steps">
+              <li>ESMFold prediction for the target structure</li>
+              <li>MPNN with <b>10 interface positions fixed</b></li>
+              <li>ESMFold (pLDDT/pTM) + ESM3dG 3-model ΔG ensemble</li>
+            </ul>
+            <div class="result-line"><b>31,209</b> designs passed pLDDT&nbsp;≥&nbsp;90 &amp; ΔG&nbsp;≥&nbsp;9.0&nbsp;kcal/mol</div>
+          </article>
+
+          <!-- Round 3 -->
+          <article class="round reveal">
+            <span class="tag">Round 3 · Final</span>
+            <div class="scale">Leading candidate</div>
+            <h3>Finish the pick</h3>
+            <ul class="steps">
+              <li>Take the leading Round-2 sequence</li>
+              <li>ESMFold prediction on the final design</li>
+              <li>Save the predicted structure for downstream use</li>
+            </ul>
+            <div class="result-line">Final <code class="mono">design_fold</code> structure generated</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ METHODS ============ -->
+    <section id="methods">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Toolbox</p>
+          <h2>Methods &amp; models</h2>
+          <p class="sub">A design→predict→score pipeline built on open structure and design models.</p>
+        </div>
+
+        <div class="methods">
+          <div class="method reveal">
+            <div class="mname"><span class="dot"></span> MPNN inverse folding</div>
+            <p>Message-passing neural network that designs amino-acid sequences on a fixed backbone (dauparas&nbsp;et&nbsp;al., 2022). Used to generate every candidate in Rounds&nbsp;1–2.</p>
+            <div class="use">→ sequence design (all rounds)</div>
+          </div>
+          <div class="method reveal">
+            <div class="mname"><span class="dot"></span> ESMFold</div>
+            <p>Structure prediction used throughout the project: it provides the Round-2 target structure and reports per-design <b>pLDDT</b> (local confidence) and <b>pTM</b> (global confidence) as the primary fold-quality metric.</p>
+            <div class="use">→ target structure + pLDDT &amp; pTM (Rounds 1–3)</div>
+          </div>
+          <div class="method reveal">
+            <div class="mname"><span class="dot"></span> ESM3dG (ensemble)</div>
+            <p>Fold-stability prediction of ΔG (kcal/mol). Run as a <b>3-checkpoint LoRA ensemble</b> and aggregated to a mean ± std per design for a robust stability score.</p>
+            <div class="use">→ ΔG stability (Round 2)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESULTS ============ -->
+    <section id="results" class="tint">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Outcomes</p>
+          <h2>What the data shows</h2>
+          <p class="sub">Across 110,000 inverse-folded designs, the pipeline consistently separates well-folded, stable candidates from the rest.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat reveal"><div class="num">110k</div><div class="lbl">total designs screened (10k + 100k)</div></div>
+          <div class="stat reveal"><div class="num">45</div><div class="lbl">Round-1 candidates passing the pilot filter</div></div>
+          <div class="stat reveal"><div class="num">31,209</div><div class="lbl">Round-2 candidates passing pLDDT &amp; ΔG filters</div></div>
+          <div class="stat reveal"><div class="num">9.97</div><div class="lbl">best predicted ΔG (kcal/mol)</div></div>
+        </div>
+
+        <div class="figures">
+          <figure class="card reveal">
+            <div class="imgwrap"><img src="Round1/Analysis/selected.png" alt="Round 1 scatter of pLDDT versus percent secondary structure, with passing candidates highlighted in red" loading="lazy" /></div>
+            <figcaption>
+              <div class="cap-title">Round 1 — fold quality vs. structure</div>
+              <p>Passing candidates (pLDDT&nbsp;≥&nbsp;92, ≥58% structured) highlighted in red.</p>
+              <div class="cap-src">Round1/Analysis/selected.png</div>
+            </figcaption>
+          </figure>
+
+          <figure class="card reveal">
+            <div class="imgwrap"><img src="Round2/Analysis/ddg_distribution.png" alt="Histogram of predicted fold stability, delta G, across the 100k Round 2 designs" loading="lazy" /></div>
+            <figcaption>
+              <div class="cap-title">Round 2 — stability distribution</div>
+              <p>ΔG (kcal/mol) across all 100,000 designs (mean ≈ 8.7, max 9.97).</p>
+              <div class="cap-src">Round2/Analysis/ddg_distribution.png</div>
+            </figcaption>
+          </figure>
+
+          <figure class="card reveal">
+            <div class="imgwrap"><img src="Round2/Analysis/scatter_selected.png" alt="Round 2 scatter of pLDDT versus delta G, with passing candidates highlighted in red" loading="lazy" /></div>
+            <figcaption>
+              <div class="cap-title">Round 2 — quality vs. stability</div>
+              <p>Passing candidates (pLDDT&nbsp;≥&nbsp;90, ΔG&nbsp;≥&nbsp;9.0) highlighted in red.</p>
+              <div class="cap-src">Round2/Analysis/scatter_selected.png</div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DATA ============ -->
+    <section id="data">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Reproducibility</p>
+          <h2>Artifacts in this repository</h2>
+          <p class="sub">Each round keeps its design inputs, predicted structures, and analysis outputs, so the full design–predict–select loop can be re-run.</p>
+        </div>
+
+        <div class="tablewrap reveal">
+          <table>
+            <thead>
+              <tr><th>Round</th><th>Stage</th><th>Path</th><th>Contents</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cnt">1</span></td>
+                <td>Sequence design</td>
+                <td><code>Round1/Sequence_Design/</code></td>
+                <td>MPNN designs on <code>SDC_155746_trunc</code> — <span class="cnt">10,000</span> sequences + per-residue scores &amp; recovery</td>
+              </tr>
+              <tr>
+                <td><span class="cnt">1</span></td>
+                <td>Folding / metrics</td>
+                <td><code>Round1/ESM/</code></td>
+                <td>ESMFold output — <code>structure_metrics.csv</code> (pLDDT, pTM) + predicted structures</td>
+              </tr>
+              <tr>
+                <td><span class="cnt">1</span></td>
+                <td>Selection</td>
+                <td><code>Round1/Analysis/</code></td>
+                <td>Notebook, <code>selected.txt</code> (<span class="cnt">45</span> designs) + figure</td>
+              </tr>
+              <tr>
+                <td><span class="cnt">2</span></td>
+                <td>Sequence design</td>
+                <td><code>Round2/02_Sequence_Design_100K/</code></td>
+                <td>MPNN designs with 10 fixed interface positions — <span class="cnt">100,000</span> sequences</td>
+              </tr>
+              <tr>
+                <td><span class="cnt">2</span></td>
+                <td>Folding / stability</td>
+                <td><code>Round2/03_ESM_100K/</code></td>
+                <td><code>structure_metrics.csv</code> (pLDDT/pTM) + <code>ensemble_fold_stability.csv</code> (ΔG mean/std)</td>
+              </tr>
+              <tr>
+                <td><span class="cnt">2</span></td>
+                <td>Selection</td>
+                <td><code>Round2/Analysis/</code></td>
+                <td><code>round2_100K_all.csv</code> (<span class="cnt">100,000</span> merged rows) + distribution &amp; scatter figures</td>
+              </tr>
+              <tr>
+                <td><span class="cnt">3</span></td>
+                <td>Final candidate</td>
+                <td><code>Round3/</code></td>
+                <td>ESMFold run on the leading sequence → <code>design_fold</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <div class="fbrand"><span class="mark" style="background:linear-gradient(135deg,#16b39a,#0f8a6f);color:#fff;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;">◈</span> SpyTag–SpyCatcher De novo design</div>
+      <p>De novo design project · MPNN · ESMFold · ESM3dG</p>
+      <div class="foot-links">
+        <a href="#objective">Objective</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#methods">Methods</a>
+        <a href="#results">Results</a>
+        <a href="#data">Data</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
